@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canteen Food Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="overlay"></div>
+
+    <nav>
+      <h2>🍔 CANTEEN</h2>
+
+      <div style="display:flex;align-items:center;gap:15px;">
+        <button class="nav-btn" onclick="window.location.href='login.html'">Login</button>
+        <div class="cart">🛒 <span id="cart-count">0</span></div>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Skip The Queue.<br><span>Order Food Online.</span></h1>
+      <p>Fast • Cashless • Smart Canteen Experience</p>
+
+      <div class="hero-buttons">
+        <button class="btn primary" onclick="scrollToMenu()">View Menu</button>
+        <button class="btn secondary" onclick="openHowItWorks()">How It Works</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU SECTION -->
+  <section class="menu-preview" id="menu">
+    <h2>🔥 Popular Items</h2>
+    <p>Quick bites loved by students</p>
+
+    <input
+      type="text"
+      id="searchBar"
+      placeholder="🔍 Search food items..."
+      onkeyup="searchMenu()"
+      style="padding:10px 20px;border-radius:30px;border:none;width:280px;margin-bottom:30px;"
+    >
+
+    <div class="category-buttons">
+      <button onclick="filterMenu('all')">All</button>
+      <button onclick="filterMenu('snacks')">Snacks</button>
+      <button onclick="filterMenu('meals')">Meals</button>
+      <button onclick="filterMenu('drinks')">Drinks</button>
+    </div>
+
+    <div class="menu-grid">
+
+    <div class="menu-card snacks">
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop">
+      <h3>Cheese Burger</h3>
+      <span>₹120</span>
+      <button onclick="addToCart('Cheese Burger',120)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card meals">
+      <img src="https://images.unsplash.com/photo-1548365328-9f547fb09505?w=800&auto=format&fit=crop">
+      <h3>Veg Pizza</h3>
+      <span>₹150</span>
+      <button onclick="addToCart('Veg Pizza',150)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card meals">
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&auto=format&fit=crop">
+      <h3>Healthy Salad</h3>
+      <span>₹90</span>
+      <button onclick="addToCart('Healthy Salad',90)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card meals">
+      <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=800&auto=format&fit=crop">
+      <h3>White Sauce Pasta</h3>
+      <span>₹130</span>
+      <button onclick="addToCart('White Sauce Pasta',130)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card snacks">
+      <img src="https://images.unsplash.com/photo-1604908554260-3c8e06f9d5fd?w=800&auto=format&fit=crop">
+      <h3>Grilled Sandwich</h3>
+      <span>₹80</span>
+      <button onclick="addToCart('Grilled Sandwich',80)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card snacks">
+      <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&auto=format&fit=crop">
+      <h3>French Fries</h3>
+      <span>₹70</span>
+      <button onclick="addToCart('French Fries',70)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card snacks">
+      <img src="https://images.unsplash.com/photo-1617196037304-1f7a0a2d2f89?w=800&auto=format&fit=crop">
+      <h3>Veg Wrap</h3>
+      <span>₹110</span>
+      <button onclick="addToCart('Veg Wrap',110)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card drinks">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop">
+      <h3>Cold Coffee</h3>
+      <span>₹60</span>
+      <button onclick="addToCart('Cold Coffee',60)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card drinks">
+      <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?w=800&auto=format&fit=crop">
+      <h3>Chocolate Milkshake</h3>
+      <span>₹90</span>
+      <button onclick="addToCart('Chocolate Milkshake',90)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card drinks">
+      <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&auto=format&fit=crop">
+      <h3>Hot Tea</h3>
+      <span>₹20</span>
+      <button onclick="addToCart('Hot Tea',20)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card drinks">
+      <img src="https://images.unsplash.com/photo-1622484212850-eb5962b6d9c4?w=800&auto=format&fit=crop">
+      <h3>Lemon Juice</h3>
+      <span>₹40</span>
+      <button onclick="addToCart('Lemon Juice',40)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card meals">
+      <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&auto=format&fit=crop">
+      <h3>Veg Noodles</h3>
+      <span>₹100</span>
+      <button onclick="addToCart('Veg Noodles',100)">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+  <!-- LIVE ORDER SIMULATION -->
+  <section style="padding:80px 60px;background:#000;">
+    <h2 style="color:#ff9800;">🧾 Live Orders</h2>
+    <ul id="orderFeed" style="margin-top:20px;line-height:2;">
+      <li>🕒 Waiting for new orders...</li>
+    </ul>
+  </section>
+
+  <!-- HOW IT WORKS MODAL -->
+  <div id="howModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:999;justify-content:center;align-items:center;">
+    <div style="background:#111;padding:30px;border-radius:20px;width:90%;max-width:400px;text-align:center;">
+      <h2 style="color:#ff9800;">How It Works</h2>
+      <p>1️⃣ Login</p>
+      <p>2️⃣ Browse Menu</p>
+      <p>3️⃣ Add to Cart</p>
+      <p>4️⃣ Place Order</p>
+      <p>5️⃣ Collect Food</p>
+      <button onclick="closeHowItWorks()" style="margin-top:15px;padding:10px 25px;background:#ff9800;border:none;border-radius:20px;font-weight:bold;">Close</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+ <script src="script.js"></script>
+<!-- ORDER MODE SELECTION -->
+<section class="order-mode">
+  <h2>🍽️ Choose Your Order Mode</h2>
+  <p>Personalized ordering experience</p>
+
+  <div class="mode-grid">
+
+    <div class="mode-card" onclick="setOrderMode('Dine In')">
+      <h3>🍽️ Dine In</h3>
+      <p>Eat fresh at the canteen</p>
+    </div>
+
+    <div class="mode-card" onclick="setOrderMode('Take Away')">
+      <h3>🥡 Take Away</h3>
+      <p>Grab & go convenience</p>
+    </div>
+
+  </div>
+
+  <p id="selectedMode" style="margin-top:20px;color:#00ff99;"></p>
+</section>
+<!-- FOOD DETAILS MODAL -->
+<div id="foodModal" class="food-modal">
+  <div class="food-modal-content">
+
+    <span class="close-modal" onclick="closeFoodModal()">×</span>
+
+    <img id="modalImage">
+
+    <h2 id="modalTitle"></h2>
+    <p class="modal-price" id="modalPrice"></p>
+
+    <div class="modal-info">
+      <p><strong>Ingredients:</strong></p>
+      <ul id="modalIngredients"></ul>
+
+      <p><strong>Calories:</strong> <span id="modalCalories"></span></p>
+      <p><strong>Preparation Time:</strong> <span id="modalTime"></span></p>
+    </div>
+
+    <button id="modalAddBtn" class="btn primary">Add to Cart</button>
+
+  </div>
+</div>
+<!-- QUANTITY -->
+<div style="margin:15px 0;">
+  <button onclick="changeQty(-1)">➖</button>
+  <span id="foodQty" style="margin:0 15px;font-size:18px;">1</span>
+  <button onclick="changeQty(1)">➕</button>
+</div>
+
+<!-- RATING -->
+<div class="rating">
+  ⭐⭐⭐⭐⭐
+</div>
+
+<!-- ACTION BUTTONS -->
+<div style="display:flex;gap:10px;justify-content:center;">
+  <button id="modalAddBtn" class="btn primary">Add to Cart</button>
+  <button onclick="toggleWishlist()" class="btn secondary">❤️</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Take Away Order</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="hero" style="background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') center/cover;">
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <h1>🥡 Take Away Mode</h1>
+    <p>Your food will be packed & ready</p>
+
+    <div style="margin-top:25px;font-size:22px;">
+      🎫 Pickup Token:
+      <strong id="token" style="color:#ff9800;"></strong>
+    </div>
+
+    <button class="btn primary" style="margin-top:30px;" onclick="confirmTakeaway()">
+      Start Ordering
+    </button>
+  </div>
+</section>
+
+<script>
+const token = "TK-" + Math.floor(1000 + Math.random() * 9000);
+document.getElementById("token").innerText = token;
+
+function confirmTakeaway() {
+  localStorage.setItem("pickupToken", token);
+  alert("✔ Token " + token + " generated.\nOrder your food now.");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Gateway</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* HERO STYLE PAYMENT */
+
+.payment-hero {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1552566626-52f8b828add9') center/cover no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55); /* lighter overlay */
+}
+
+.payment-box {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(255,152,0,0.4);
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.payment-box h1 {
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.payment-box input,
+.payment-box select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+}
+
+.pay-btn {
+  margin-top: 20px;
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  background: #ff9800;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff9800;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+</style>
+</head>
+<body>
+
+<section class="payment-hero">
+
+  <div class="payment-overlay"></div>
+
+  <div class="payment-box">
+    <h1>💳 Secure Payment</h1>
+
+    <select>
+      <option>UPI</option>
+      <option>Credit Card</option>
+      <option>Debit Card</option>
+    </select>
+
+    <input type="text" placeholder="Card / UPI ID">
+    <input type="password" placeholder="PIN">
+
+    <button class="pay-btn" onclick="processPayment()">Pay Now</button>
+  </div>
+
+</section>
+
+<script>
+function processPayment() {
+  alert("Payment Successful 🎉");
+  localStorage.removeItem("cart");
+  window.location.href = "success.html";
+}
+</script>
+
+</body>
+</html>
