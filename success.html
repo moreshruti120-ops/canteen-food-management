@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Success</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="center">
+
+<div class="success">
+  <h1>✅ Order Placed</h1>
+  <p>Estimated Time: <span id="time"></span> mins</p>
+  <button onclick="location.href='index.html'">Back Home</button>
+</div>
+
+<script>
+  document.getElementById("time").innerText =
+    Math.max(10, localStorage.getItem("cartCount") * 5);
+</script>
+
+</body>
+</html>

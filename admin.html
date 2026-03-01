@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+
+<section class="admin-hero">
+
+  <div class="overlay"></div>
+
+  <div class="admin-container">
+
+    <h1>⚡ Admin Control Panel</h1>
+    <p>Manage Menu • Monitor Orders • Control System</p>
+
+    <div class="admin-grid">
+
+      <!-- ADD DRINK -->
+      <div class="admin-card">
+        <h2>🥤 Add Drink</h2>
+        <input type="text" id="drinkName" placeholder="Drink Name">
+        <input type="number" id="drinkPrice" placeholder="Price">
+        <button onclick="addDrink()">Add Drink</button>
+      </div>
+
+      <!-- SYSTEM STATS -->
+      <div class="admin-card">
+        <h2>📊 System Stats</h2>
+        <p>Total Orders: <span id="totalOrders">0</span></p>
+        <p>Active Users: <span id="activeUsers">0</span></p>
+        <p>Revenue Today: ₹<span id="revenue">0</span></p>
+      </div>
+
+      <!-- RECENT ORDERS -->
+      <div class="admin-card">
+        <h2>📦 Recent Orders</h2>
+        <ul id="recentOrders">
+          <li>No orders yet</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <button class="logout-btn" onclick="location.href='index.html'">Logout</button>
+
+  </div>
+
+</section>
+
+<script>
+
+/* FIX OVERLAY CLICK ISSUE */
+document.addEventListener("DOMContentLoaded", function() {
+  const overlay = document.querySelector(".overlay");
+  if (overlay) overlay.style.pointerEvents = "none";
+});
+
+/* LOAD SYSTEM DATA */
+document.addEventListener("DOMContentLoaded", function() {
+
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const cartCount = Number(localStorage.getItem("cartCount")) || 0;
+
+  // Total Orders
+  document.getElementById("totalOrders").innerText = orders.length;
+
+  // Fake Active Users (dynamic random)
+  document.getElementById("activeUsers").innerText =
+    Math.floor(Math.random() * 50) + 10;
+
+  // Revenue Calculation (assume avg 100 per order)
+  document.getElementById("revenue").innerText =
+    orders.length * 100;
+
+  // Recent Orders List
+  const list = document.getElementById("recentOrders");
+  list.innerHTML = "";
+
+  if (orders.length === 0) {
+    list.innerHTML = "<li>No orders yet</li>";
+  } else {
+    orders.slice(-5).reverse().forEach(order => {
+      const li = document.createElement("li");
+      li.innerText = order;
+      list.appendChild(li);
+    });
+  }
+});
+
+/* ADD DRINK FUNCTION */
+function addDrink() {
+  const name = document.getElementById("drinkName").value.trim();
+  const price = document.getElementById("drinkPrice").value.trim();
+
+  if(name === "" || price === "") {
+    alert("Enter drink details");
+    return;
+  }
+
+  // Store in localStorage
+  const drinks = JSON.parse(localStorage.getItem("customDrinks")) || [];
+  drinks.push({ name, price });
+  localStorage.setItem("customDrinks", JSON.stringify(drinks));
+
+  alert("New Drink Added: " + name + " - ₹" + price);
+
+  // Clear fields
+  document.getElementById("drinkName").value = "";
+  document.getElementById("drinkPrice").value = "";
+}
+
+</script>
+<canvas id="salesChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('salesChart');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Burger', 'Pizza', 'Pasta', 'Drinks'],
+    datasets: [{
+      label: 'Sales',
+      data: [12, 19, 8, 15],
+      backgroundColor: '#ff9800'
+    }]
+  }
+});
+</script>
+
+</body>
+</html>
