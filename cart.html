@@ -4,32 +4,124 @@
 <meta charset="UTF-8">
 <title>Your Cart</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* ================= CART PAGE REDESIGN ================= */
+
+.cart-hero {
+  min-height: 100vh;
+  background: url("https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=1600&auto=format&fit=crop") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.cart-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.cart-container {
+  position: relative;
+  z-index: 2;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(25px);
+  padding: 60px;
+  border-radius: 25px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(255,152,0,0.35);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.cart-container h1 {
+  color: #ff9800;
+  margin-bottom: 25px;
+}
+
+.cart-container ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.cart-container li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 16px;
+}
+
+.cart-container h2 {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.cart-container .btn {
+  margin-top: 25px;
+}
+
+/* RATING */
+.rating {
+  margin-top: 25px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.rating span {
+  color: #555;
+  transition: 0.3s;
+}
+
+.rating span:hover {
+  transform: scale(1.2);
+}
+
+.rating-text {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+</style>
+
 </head>
 <body>
 
-<section class="hero">
-<div class="overlay"></div>
+<section class="cart-hero">
 
-<div class="cart-box">
-<h1>🛒 Your Cart</h1>
+  <div class="cart-overlay"></div>
 
-<ul id="cartItems"></ul>
+  <div class="cart-container">
 
-<h2>Total: ₹<span id="total">0</span></h2>
+    <h1>🛒 Your Cart</h1>
 
-<button class="btn primary" onclick="goToPayment()">Proceed to Payment</button>
-</div>
+    <ul id="cartItems"></ul>
 
-<!-- RATING SYSTEM -->
-<div class="rating" data-item="Cart Rating">
-<span data-value="1">★</span>
-<span data-value="2">★</span>
-<span data-value="3">★</span>
-<span data-value="4">★</span>
-<span data-value="5">★</span>
-</div>
+    <h2>Total: ₹<span id="total">0</span></h2>
 
-<p class="rating-text">Rate your experience</p>
+    <button class="btn primary" onclick="goToPayment()">
+      Proceed to Payment
+    </button>
+
+    <!-- RATING -->
+    <div class="rating" data-item="Cart Rating">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+
+    <p class="rating-text">Rate your experience</p>
+
+  </div>
 
 </section>
 
@@ -59,6 +151,11 @@ document.addEventListener("DOMContentLoaded", function(){
   totalEl.innerText = total;
 });
 
+/* PAYMENT REDIRECT */
+function goToPayment() {
+  window.location.href = "payment.html";
+}
+
 /* SIMPLE RATING SYSTEM */
 document.querySelectorAll(".rating span").forEach(star => {
   star.addEventListener("click", function(){
@@ -77,6 +174,5 @@ document.querySelectorAll(".rating span").forEach(star => {
 
 </script>
 
-<script src="script.js"></script>
 </body>
 </html>

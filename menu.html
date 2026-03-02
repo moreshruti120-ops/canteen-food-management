@@ -9,104 +9,88 @@
 
 <!-- NAVBAR -->
 <nav style="background:#000;padding:20px 60px;display:flex;justify-content:space-between;">
-<h2 style="color:#fff;">🍔 MENU</h2>
-<div style="display:flex;gap:15px;">
-<button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
-<div class="cart" onclick="window.location.href='cart.html'">
-🛒 <span id="cart-count">0</span>
-</div>
-</div>
+  <h2 style="color:#fff;">🍔 MENU</h2>
+  <div style="display:flex;gap:15px;align-items:center;">
+    <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+    <div class="cart" onclick="window.location.href='cart.html'">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </div>
 </nav>
 
 <!-- MENU SECTION -->
 <section class="menu-preview">
-<h2>🔥 Popular Items</h2>
-<p>Quick bites loved by students</p>
 
-<input type="text" id="searchBar"
-placeholder="🔍 Search food items..."
-onkeyup="searchMenu()"
-style="padding:10px 20px;border-radius:30px;border:none;width:280px;margin-bottom:30px;">
+  <h2>🔥 Popular Items</h2>
+  <p>Quick bites loved by students</p>
 
-<div class="category-buttons">
-<button onclick="filterMenu('all')">All</button>
-<button onclick="filterMenu('snacks')">Snacks</button>
-<button onclick="filterMenu('meals')">Meals</button>
-<button onclick="filterMenu('drinks')">Drinks</button>
-</div>
+  <input type="text"
+         id="searchBar"
+         placeholder="🔍 Search food items..."
+         onkeyup="searchMenu()"
+         style="padding:10px 20px;border-radius:30px;border:none;width:280px;margin-bottom:30px;">
 
-<div class="menu-grid">
+  <div class="category-buttons">
+    <button onclick="filterMenu('all')">All</button>
+    <button onclick="filterMenu('snacks')">Snacks</button>
+    <button onclick="filterMenu('meals')">Meals</button>
+    <button onclick="filterMenu('drinks')">Drinks</button>
+  </div>
 
-<!-- KEEP ALL YOUR FOOD CARDS EXACTLY SAME -->
-<!-- Just paste them here (I am not removing anything) -->
+  <div class="menu-grid">
 
-</div>
+    <div class="menu-card snacks">
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800">
+      <h3>Cheese Burger</h3>
+      <span>₹120</span>
+      <button onclick="addToCart('Cheese Burger',120)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card meals">
+      <img src="https://images.unsplash.com/photo-1548365328-9f547fb09505?w=800">
+      <h3>Veg Pizza</h3>
+      <span>₹150</span>
+      <button onclick="addToCart('Veg Pizza',150)">Add to Cart</button>
+    </div>
+
+    <div class="menu-card drinks">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800">
+      <h3>Cold Coffee</h3>
+      <span>₹60</span>
+      <button onclick="addToCart('Cold Coffee',60)">Add to Cart</button>
+    </div>
+
+  </div>
+
 </section>
 
 <!-- LIVE ORDER -->
 <section style="padding:80px 60px;background:#000;">
-<h2 style="color:#ff9800;">🧾 Live Orders</h2>
-<ul id="orderFeed" style="margin-top:20px;line-height:2;">
-<li>🕒 Waiting for new orders...</li>
-</ul>
+  <h2 style="color:#ff9800;">🧾 Live Orders</h2>
+  <ul id="orderFeed" style="margin-top:20px;line-height:2;">
+    <li>🕒 Waiting for new orders...</li>
+  </ul>
 </section>
-
-<!-- HOW IT WORKS -->
-<div id="how" class="how-section" style="padding:80px;background:#111;text-align:center;">
-<h2 style="color:#ff9800;">How It Works</h2>
-<p>1️⃣ Login</p>
-<p>2️⃣ Browse Menu</p>
-<p>3️⃣ Add to Cart</p>
-<p>4️⃣ Place Order</p>
-<p>5️⃣ Collect Food</p>
-</div>
 
 <!-- ORDER MODE -->
 <section class="order-mode">
-<h2>🍽️ Choose Your Order Mode</h2>
-<p>Personalized ordering experience</p>
+  <h2>🍽️ Choose Your Order Mode</h2>
+  <p>Personalized ordering experience</p>
 
-<div class="mode-grid">
-<div class="mode-card" onclick="setOrderMode('Dine In')">
-<h3>🍽️ Dine In</h3>
-<p>Eat fresh at the canteen</p>
-</div>
+  <div class="mode-grid">
+    <div class="mode-card" onclick="setOrderMode('Dine In')">
+      <h3>🍽️ Dine In</h3>
+      <p>Eat fresh at the canteen</p>
+    </div>
 
-<div class="mode-card" onclick="setOrderMode('Take Away')">
-<h3>🥡 Take Away</h3>
-<p>Grab & go convenience</p>
-</div>
-</div>
+    <div class="mode-card" onclick="setOrderMode('Take Away')">
+      <h3>🥡 Take Away</h3>
+      <p>Grab & go convenience</p>
+    </div>
+  </div>
 
-<p id="selectedMode" style="margin-top:20px;color:#00ff99;"></p>
+  <p id="selectedMode" style="margin-top:20px;color:#00ff99;"></p>
 </section>
-
-<!-- FOOD MODAL -->
-<div id="foodModal" class="food-modal">
-<div class="food-modal-content">
-<span class="close-modal" onclick="closeFoodModal()">×</span>
-
-<img id="modalImage">
-<h2 id="modalTitle"></h2>
-<p class="modal-price" id="modalPrice"></p>
-
-<ul id="modalIngredients"></ul>
-<p><strong>Calories:</strong> <span id="modalCalories"></span></p>
-<p><strong>Preparation Time:</strong> <span id="modalTime"></span></p>
-
-<div style="margin:15px 0;">
-<button onclick="changeQty(-1)">➖</button>
-<span id="foodQty">1</span>
-<button onclick="changeQty(1)">➕</button>
-</div>
-
-<div style="display:flex;gap:10px;justify-content:center;">
-<button id="modalAddBtn" class="btn primary">Add to Cart</button>
-<button onclick="toggleWishlist()" class="btn secondary">❤️</button>
-</div>
-
-</div>
-</div>
 
 <script src="script.js"></script>
 </body>

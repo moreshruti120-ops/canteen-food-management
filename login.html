@@ -1,64 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Login | Smart Canteen</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Login | Smart Canteen</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <section class="login-hero">
 
-<div class="overlay"></div>
+  <div class="overlay"></div>
 
-<div class="login-hero-content">
+  <div class="login-hero-content">
 
-<!-- LEFT SIDE -->
-<div class="login-text">
-<h1>Smart Canteen System</h1>
-<p>
-Fast • Cashless • Intelligent Ordering  
-<br>
-Experience the future of campus dining
-</p>
-</div>
+    <!-- LEFT SIDE -->
+    <div class="login-text">
+      <h1>Smart Canteen System</h1>
+      <p>
+        Fast • Cashless • Intelligent Ordering<br>
+        Experience the future of campus dining
+      </p>
+    </div>
 
-<!-- RIGHT LOGIN CARD -->
-<div class="login-box hero-login">
+    <!-- RIGHT SIDE LOGIN CARD -->
+    <div class="login-box hero-login">
 
-<h2>Welcome Back 👋</h2>
-<p class="login-sub">Login to continue</p>
+      <h2>Welcome Back 👋</h2>
+      <p class="login-sub">Login to continue</p>
 
-<select id="role">
-<option value="student">Student Login</option>
-<option value="admin">Admin Login</option>
-</select>
+      <select id="role">
+        <option value="student">Student Login</option>
+        <option value="admin">Admin Login</option>
+      </select>
 
-<!-- 🔥 IMPORTANT: Added IDs -->
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
+      <input id="username" type="text" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
 
-<button onclick="handleLogin()">Login</button>
+      <button onclick="handleLogin()">Login</button>
 
-<p class="login-footer">
-Secure role-based access system
-</p>
+      <p class="login-footer">
+        Secure role-based access system
+      </p>
 
-<!-- REGISTER LINK MOVED INSIDE CARD -->
-<p style="margin-top:15px;color:#aaa;">
-Don't have account?
-<span style="color:#ff9800;cursor:pointer;"
-onclick="window.location.href='register.html'">
-Register
-</span>
-</p>
+      <p style="margin-top:15px;color:#aaa;">
+        Don't have account?
+        <span style="color:#ff9800;cursor:pointer;"
+              onclick="window.location.href='register.html'">
+          Register
+        </span>
+      </p>
 
-</div>
+    </div>
 
-</div>
+  </div>
+
 </section>
 
 <script src="script.js"></script>
-
 </body>
 </html>

@@ -1,50 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Order Success</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Order Success</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ===== BACKGROUND ===== */
+
+.success-hero {
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=1600&auto=format&fit=crop") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.success-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.8)
+  );
+}
+
+/* ===== GLASS CARD ===== */
+
+.success-box {
+  position: relative;
+  z-index: 2;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(30px);
+  padding: 60px;
+  border-radius: 30px;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 70px rgba(0,255,120,0.3);
+  animation: fadeIn 0.6s ease;
+}
+
+.success-box h1 {
+  margin-top: 20px;
+  font-size: 28px;
+  color: #00ff99;
+}
+
+.success-box p {
+  margin: 10px 0;
+  color: #ddd;
+}
+
+/* ===== CHECK ANIMATION ===== */
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #00ff99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  animation: pop 0.4s ease forwards;
+}
+
+.checkmark span {
+  font-size: 40px;
+  color: #000;
+}
+
+/* ===== BUTTON ===== */
+
+.success-btn {
+  margin-top: 25px;
+  padding: 14px 30px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(45deg, #ff9800, #ffa726);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.success-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ff9800;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+</style>
 </head>
 <body>
 
-<section class="hero" style="display:flex;justify-content:center;align-items:center;">
+<section class="success-hero">
 
-  <div class="overlay"></div>
+  <div class="success-overlay"></div>
 
-  <div class="success">
-    <h1>✅ Order Placed Successfully</h1>
+  <div class="success-box">
 
-    <p>🧾 Order ID: <span id="orderId"></span></p>
-    <p>⏱ Estimated Time: <span id="time"></span> mins</p>
+    <div class="checkmark">
+      <span>✔</span>
+    </div>
 
-    <button class="btn primary" onclick="goHome()">Back Home</button>
+    <h1>Order Placed Successfully</h1>
+
+    <p><strong>Order ID:</strong> <span id="orderId"></span></p>
+    <p><strong>Estimated Time:</strong> <span id="time"></span> mins</p>
+
+    <button class="success-btn" onclick="location.href='index.html'">
+      Back Home
+    </button>
+
   </div>
 
 </section>
 
 <script>
 
-  // Generate fake order ID
-  const orderId = "ORD" + Math.floor(Math.random() * 100000);
-  document.getElementById("orderId").innerText = orderId;
+// Generate random Order ID
+const orderId = "ORD" + Math.floor(1000 + Math.random() * 9000);
+document.getElementById("orderId").innerText = orderId;
 
-  // Get cart from localStorage
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+// Estimate time based on cart items
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const time = Math.max(10, cart.length * 5);
+document.getElementById("time").innerText = time;
 
-  // Calculate time based on items
-  const estimatedTime = Math.max(10, cart.length * 5);
-  document.getElementById("time").innerText = estimatedTime;
-
-  // Save order to admin dashboard
-  const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  orders.push(orderId + " - " + cart.length + " items");
-  localStorage.setItem("orders", JSON.stringify(orders));
-
-  // Clear cart after success
-  localStorage.removeItem("cart");
-
-  function goHome() {
-    window.location.href = "index.html";
-  }
+// Clear cart after success
+localStorage.removeItem("cart");
 
 </script>
 
