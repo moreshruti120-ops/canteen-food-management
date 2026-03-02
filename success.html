@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -145,6 +146,24 @@ document.getElementById("time").innerText = time;
 // Clear cart after success
 localStorage.removeItem("cart");
 
+=======
+<html>
+<head>
+  <title>Order Success</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="center">
+
+<div class="success">
+  <h1>✅ Order Placed</h1>
+  <p>Estimated Time: <span id="time"></span> mins</p>
+  <button onclick="location.href='index.html'">Back Home</button>
+</div>
+
+<script>
+  document.getElementById("time").innerText =
+    Math.max(10, localStorage.getItem("cartCount") * 5);
+>>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 </script>
 
 </body>

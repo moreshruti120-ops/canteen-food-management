@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <title>Dine In Order</title>
 <link rel="stylesheet" href="style.css">
+=======
+  <meta charset="UTF-8">
+  <title>Dine In Order</title>
+  <link rel="stylesheet" href="style.css">
+>>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 </head>
 <body>
 
 <section class="hero" style="background:url('https://images.unsplash.com/photo-1552566626-52f8b828add9') center/cover;">
   
+<<<<<<< HEAD
 <div class="overlay"></div>
 
 <div class="hero-content">
@@ -36,10 +43,40 @@ Confirm Table
 <p id="selectedTable" style="margin-top:20px;color:#fff;font-weight:500;"></p>
 
 </div>
+=======
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+
+    <h1>🍽️ Dine In Mode</h1>
+    <p>Welcome! Choose your table & relax</p>
+
+    <!-- TABLE SELECTION -->
+    <div style="margin-top:30px;">
+      <select id="table" style="padding:12px 20px;border-radius:30px;">
+        <option>Select Table</option>
+        <option>Table 1</option>
+        <option>Table 2</option>
+        <option>Table 3</option>
+        <option>Table 4</option>
+      </select>
+    </div>
+
+    <!-- CONFIRM BUTTON -->
+    <button class="btn primary" style="margin-top:25px;" onclick="confirmDineIn()">
+      Confirm Table
+    </button>
+
+    <!-- SHOW SELECTED TABLE (NEW BUT DOES NOT CHANGE DESIGN) -->
+    <p id="selectedTable" style="margin-top:20px;color:#fff;font-weight:500;"></p>
+
+  </div>
+>>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 </section>
 
 <script>
 
+<<<<<<< HEAD
 /* PREVENT OVERLAY BLOCK */
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -74,6 +111,36 @@ alert("✔ " + table + " reserved.\nYou can now order food.");
 /* 🔥 IMPORTANT FIX: Go to MENU page */
 window.location.href = "menu.html";
 
+=======
+/* FIX OVERLAY CLICK BLOCKING */
+document.addEventListener("DOMContentLoaded", function() {
+  const overlay = document.querySelector(".overlay");
+  if (overlay) overlay.style.pointerEvents = "none";
+
+  // Show previously selected table if exists
+  const savedTable = localStorage.getItem("table");
+  if (savedTable) {
+    document.getElementById("selectedTable").innerText =
+      "Previously Reserved: " + savedTable;
+  }
+});
+
+/* CONFIRM TABLE FUNCTION */
+function confirmDineIn() {
+  const table = document.getElementById("table").value;
+
+  if (table === "Select Table") {
+    alert("Please select a table");
+    return;
+  }
+
+  localStorage.setItem("orderMode", "Dine In");
+  localStorage.setItem("table", table);
+
+  alert("✔ " + table + " reserved.\nYou can now order food.");
+
+  window.location.href = "index.html";
+>>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 }
 
 </script>
