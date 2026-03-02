@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <title>Payment Gateway</title>
 <link rel="stylesheet" href="style.css">
+
 <style>
-
-/* HERO STYLE PAYMENT */
-
 .payment-hero {
   height: 100vh;
   background: url('https://images.unsplash.com/photo-1552566626-52f8b828add9') center/cover no-repeat;
@@ -20,7 +18,7 @@
 .payment-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55); /* lighter overlay */
+  background: rgba(0,0,0,0.55);
 }
 
 .payment-box {
@@ -73,38 +71,73 @@
   from {opacity:0; transform:translateY(20px);}
   to {opacity:1; transform:translateY(0);}
 }
-
 </style>
+
 </head>
 <body>
 
 <section class="payment-hero">
 
-  <div class="payment-overlay"></div>
+<div class="payment-overlay"></div>
 
-  <div class="payment-box">
-    <h1>💳 Secure Payment</h1>
+<div class="payment-box">
+<h1>💳 Secure Payment</h1>
 
-    <select>
-      <option>UPI</option>
-      <option>Credit Card</option>
-      <option>Debit Card</option>
-    </select>
+<select id="paymentMethod">
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+</select>
 
-    <input type="text" placeholder="Card / UPI ID">
-    <input type="password" placeholder="PIN">
+<input type="text" id="paymentId" placeholder="Card / UPI ID">
+<input type="password" id="paymentPin" placeholder="PIN">
 
-    <button class="pay-btn" onclick="processPayment()">Pay Now</button>
-  </div>
+<button class="pay-btn" onclick="handlePayment()">Pay Now</button>
+</div>
 
 </section>
 
+<script src="script.js"></script>
+
 <script>
-function processPayment() {
-  alert("Payment Successful 🎉");
-  localStorage.removeItem("cart");
-  window.location.href = "success.html";
+
+/* MULTI-PAGE CONNECTED PAYMENT */
+function handlePayment(){
+
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+if(cart.length === 0){
+alert("Your cart is empty!");
+window.location.href = "menu.html";
+return;
 }
+
+/* Calculate total */
+let total = 0;
+cart.forEach(item=>{
+total += Number(item.price);
+});
+
+/* Save order for admin */
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+orders.push({
+items: cart,
+total: total,
+date: new Date().toLocaleString()
+});
+
+localStorage.setItem("orders", JSON.stringify(orders));
+
+/* Clear cart */
+localStorage.removeItem("cart");
+
+alert("Payment Successful 🎉");
+
+window.location.href = "success.html";
+
+}
+
 </script>
 
 </body>

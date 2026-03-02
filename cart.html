@@ -1,69 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Your Cart</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Your Cart</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <section class="hero">
-  <div class="overlay"></div>
+<div class="overlay"></div>
 
-  <div class="cart-box">
-    <h1>🛒 Your Cart</h1>
-    <ul id="cartItems"></ul>
+<div class="cart-box">
+<h1>🛒 Your Cart</h1>
 
-    <h2>Total: ₹<span id="total">0</span></h2>
+<ul id="cartItems"></ul>
 
-    <button class="btn primary" onclick="goToPayment()">Proceed to Payment</button>
-  </div>
-  <div class="rating" data-item="Cheese Burger">
-  <span data-value="1">★</span>
-  <span data-value="2">★</span>
-  <span data-value="3">★</span>
-  <span data-value="4">★</span>
-  <span data-value="5">★</span>
+<h2>Total: ₹<span id="total">0</span></h2>
+
+<button class="btn primary" onclick="goToPayment()">Proceed to Payment</button>
 </div>
-<p class="rating-text">Rate this item</p>
+
+<!-- RATING SYSTEM -->
+<div class="rating" data-item="Cart Rating">
+<span data-value="1">★</span>
+<span data-value="2">★</span>
+<span data-value="3">★</span>
+<span data-value="4">★</span>
+<span data-value="5">★</span>
+</div>
+
+<p class="rating-text">Rate your experience</p>
+
 </section>
 
 <script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let total = 0;
-const list = document.getElementById("cartItems");
 
-cart.forEach(item => {
-  const li = document.createElement("li");
-  li.innerText = `${item.name} - ₹${item.price}`;
-  list.appendChild(li);
-  total += item.price;
+/* LOAD CART CLEANLY */
+document.addEventListener("DOMContentLoaded", function(){
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const list = document.getElementById("cartItems");
+  const totalEl = document.getElementById("total");
+
+  let total = 0;
+  list.innerHTML = "";
+
+  if(cart.length === 0){
+    list.innerHTML = "<li>Your cart is empty</li>";
+  } else {
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.innerText = item.name + " - ₹" + item.price;
+      list.appendChild(li);
+      total += Number(item.price);
+    });
+  }
+
+  totalEl.innerText = total;
 });
 
-document.getElementById("total").innerText = total;
+/* SIMPLE RATING SYSTEM */
+document.querySelectorAll(".rating span").forEach(star => {
+  star.addEventListener("click", function(){
+    const value = this.getAttribute("data-value");
+    const parent = this.parentElement;
 
-function goToPayment() {
-  window.location.href = "payment.html";
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let total = 0;
+    parent.querySelectorAll("span").forEach(s => {
+      s.style.color = s.getAttribute("data-value") <= value
+        ? "#ff9800"
+        : "#555";
+    });
 
-const list = document.getElementById("cartItems");
-
-if(cart.length === 0){
-  list.innerHTML = "<li>Your cart is empty</li>";
-}
-
-cart.forEach(item => {
-  const li = document.createElement("li");
-  li.innerText = item.name + " - ₹" + item.price;
-  list.appendChild(li);
-  total += item.price;
+    localStorage.setItem("cartRating", value);
+  });
 });
 
-document.getElementById("total").innerText = total;
-}
 </script>
-<script src="script.js"></script>
 
+<script src="script.js"></script>
 </body>
 </html>

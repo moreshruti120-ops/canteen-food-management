@@ -1,38 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Register | Smart Canteen</title>
-  <link rel="stylesheet" href="style.css">
+<title>Register | Smart Canteen</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <section class="login-hero">
 
-  <div class="overlay"></div>
+<div class="overlay"></div>
 
-  <div class="login-box hero-login">
+<div class="login-box hero-login">
 
-    <h1>Create Account 🚀</h1>
-    <p style="color:#ccc;margin-bottom:20px;">Join Smart Canteen Today</p>
+<h1>Create Account 🚀</h1>
+<p style="color:#ccc;margin-bottom:20px;">
+Join Smart Canteen Today
+</p>
 
-    <input type="text" id="regName" placeholder="Full Name">
-    <input type="email" id="regEmail" placeholder="Email">
-    <input type="password" id="regPassword" placeholder="Password">
+<input type="text" id="regName" placeholder="Full Name">
+<input type="email" id="regEmail" placeholder="Email">
+<input type="password" id="regPassword" placeholder="Password">
 
-    <button onclick="registerUser()">Register</button>
+<button onclick="handleRegister()">Register</button>
 
-    <p style="margin-top:15px;color:#aaa;">
-      Already have account?
-      <span style="color:#ff9800;cursor:pointer;"
-            onclick="window.location.href='login.html'">
-        Login
-      </span>
-    </p>
+<p style="margin-top:15px;color:#aaa;">
+Already have account?
+<span style="color:#ff9800;cursor:pointer;"
+onclick="window.location.href='login.html'">
+Login
+</span>
+</p>
 
-  </div>
+</div>
 
 </section>
 
 <script src="script.js"></script>
+
+<script>
+
+/* IMPROVED REGISTER FUNCTION */
+function handleRegister(){
+
+const name = document.getElementById("regName").value.trim();
+const email = document.getElementById("regEmail").value.trim();
+const password = document.getElementById("regPassword").value.trim();
+
+if(!name || !email || !password){
+alert("Please fill all fields");
+return;
+}
+
+/* Get existing users */
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+/* Prevent duplicate email */
+const exists = users.find(user => user.email === email);
+
+if(exists){
+alert("Email already registered!");
+return;
+}
+
+/* Save new user */
+users.push({ name, email, password });
+localStorage.setItem("users", JSON.stringify(users));
+
+alert("Account Created Successfully 🎉");
+
+/* Auto redirect to login */
+window.location.href = "login.html";
+}
+
+</script>
+
 </body>
 </html>

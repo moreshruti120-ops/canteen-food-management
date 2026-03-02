@@ -7,7 +7,8 @@
 </head>
 <body>
 
-<section class="hero" style="background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') center/cover;">
+<section class="hero" style="background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=1600&auto=format&fit=crop') center/cover;">
+  
   <div class="overlay"></div>
 
   <div class="hero-content">
@@ -22,18 +23,43 @@
     <button class="btn primary" style="margin-top:30px;" onclick="confirmTakeaway()">
       Start Ordering
     </button>
+
+    <!-- Show saved token if exists -->
+    <p id="savedToken" style="margin-top:20px;color:#ccc;"></p>
+
   </div>
 </section>
 
 <script>
+
+/* Fix overlay blocking clicks */
+document.addEventListener("DOMContentLoaded", function() {
+  const overlay = document.querySelector(".overlay");
+  if (overlay) overlay.style.pointerEvents = "none";
+});
+
+/* Generate token */
 const token = "TK-" + Math.floor(1000 + Math.random() * 9000);
 document.getElementById("token").innerText = token;
 
-function confirmTakeaway() {
-  localStorage.setItem("pickupToken", token);
-  alert("✔ Token " + token + " generated.\nOrder your food now.");
-  window.location.href = "index.html";
+/* Show previously generated token */
+const oldToken = localStorage.getItem("pickupToken");
+if (oldToken) {
+  document.getElementById("savedToken").innerText =
+    "Previous Token: " + oldToken;
 }
+
+function confirmTakeaway() {
+
+  localStorage.setItem("orderMode", "Take Away");
+  localStorage.setItem("pickupToken", token);
+
+  alert("✔ Token " + token + " generated.\nYou can now order food.");
+
+  // Redirect to MENU page (multi-page structure)
+  window.location.href = "menu.html";
+}
+
 </script>
 
 </body>

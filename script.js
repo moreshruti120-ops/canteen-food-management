@@ -3,27 +3,37 @@
 // ============================
 
 function registerUser() {
-  const name = document.getElementById("regName").value;
-  const email = document.getElementById("regEmail").value;
-  const password = document.getElementById("regPassword").value;
+
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value.trim();
 
   if (!name || !email || !password) {
     alert("Fill all fields");
     return;
   }
 
-  localStorage.setItem("userData", JSON.stringify({
-    name, email, password
-  }));
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Prevent duplicate email
+  const exists = users.find(user => user.email === email);
+  if (exists) {
+    alert("Email already registered");
+    return;
+  }
+
+  users.push({ name, email, password });
+  localStorage.setItem("users", JSON.stringify(users));
 
   alert("Registration Successful 🚀");
   window.location.href = "login.html";
 }
 
 function handleLogin() {
-  const username = document.querySelector("input[type='text']").value;
-  const password = document.querySelector("input[type='password']").value;
-  const role = document.getElementById("role").value;
+
+  const username = document.getElementById("username")?.value.trim();
+  const password = document.getElementById("password")?.value.trim();
+  const role = document.getElementById("role")?.value;
 
   if (role === "admin") {
     localStorage.setItem("loggedInUser", "Admin");
@@ -31,11 +41,15 @@ function handleLogin() {
     return;
   }
 
-  const saved = JSON.parse(localStorage.getItem("userData"));
+  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  if (saved && username === saved.name && password === saved.password) {
-    localStorage.setItem("loggedInUser", saved.name);
-    window.location.href = "index.html";
+  const validUser = users.find(user =>
+    user.name === username && user.password === password
+  );
+
+  if (validUser) {
+    localStorage.setItem("loggedInUser", validUser.name);
+    window.location.href = "menu.html";
   } else {
     alert("Invalid Credentials");
   }
@@ -51,20 +65,32 @@ function logoutUser() {
 // ============================
 
 function addToCart(item, price) {
+
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push({ name: item, price: price });
+
+  cart.push({
+    name: item,
+    price: Number(price)
+  });
+
   localStorage.setItem("cart", JSON.stringify(cart));
+
   updateCartCount();
   alert(item + " added to cart!");
 }
 
 function updateCartCount() {
+
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const cartCount = document.getElementById("cart-count");
-  if (cartCount) cartCount.innerText = cart.length;
+
+  if (cartCount) {
+    cartCount.innerText = cart.length;
+  }
 }
 
 function loadCartPage() {
+
   const list = document.getElementById("cartItems");
   const totalEl = document.getElementById("total");
 
@@ -83,7 +109,7 @@ function loadCartPage() {
     const li = document.createElement("li");
     li.innerText = item.name + " - ₹" + item.price;
     list.appendChild(li);
-    total += item.price;
+    total += Number(item.price);
   });
 
   if (totalEl) totalEl.innerText = total;
@@ -94,15 +120,28 @@ function loadCartPage() {
 // ============================
 
 function addDrink() {
-  const name = document.getElementById("drinkName").value;
-  const price = document.getElementById("drinkPrice").value;
+
+  const name = document.getElementById("drinkName")?.value.trim();
+  const price = document.getElementById("drinkPrice")?.value.trim();
 
   if (!name || !price) {
     alert("Enter drink details");
     return;
   }
 
+  let drinks = JSON.parse(localStorage.getItem("customDrinks")) || [];
+
+  drinks.push({
+    name,
+    price: Number(price)
+  });
+
+  localStorage.setItem("customDrinks", JSON.stringify(drinks));
+
   alert("Drink Added: " + name + " ₹" + price);
+
+  document.getElementById("drinkName").value = "";
+  document.getElementById("drinkPrice").value = "";
 }
 
 // ============================
@@ -110,14 +149,16 @@ function addDrink() {
 // ============================
 
 window.addEventListener("load", () => {
+
   updateCartCount();
   loadCartPage();
 
   const user = localStorage.getItem("loggedInUser");
-  const nav = document.querySelector(".nav-btn");
+  const navBtn = document.querySelector(".nav-btn");
 
-  if (user && nav) {
-    nav.innerText = "Logout";
-    nav.onclick = logoutUser;
+  if (user && navBtn) {
+    navBtn.innerText = "Logout";
+    navBtn.onclick = logoutUser;
   }
+
 });

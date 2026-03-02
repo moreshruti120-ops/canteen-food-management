@@ -3,7 +3,6 @@
 <head>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
 </head>
 <body>
 
@@ -44,38 +43,60 @@
 
     </div>
 
-    <button class="logout-btn" onclick="location.href='index.html'">Logout</button>
+    <button class="logout-btn" onclick="window.location.href='index.html'">
+      Logout
+    </button>
 
   </div>
 
 </section>
 
+<!-- SALES CHART -->
+<section style="padding:40px;background:#000;text-align:center;">
+  <h2 style="color:#ff9800;">📊 Sales Overview</h2>
+  <canvas id="salesChart" style="max-width:600px;margin:auto;"></canvas>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+
 <script>
 
-/* FIX OVERLAY CLICK ISSUE */
+/* PREVENT OVERLAY BLOCKING CLICKS */
 document.addEventListener("DOMContentLoaded", function() {
   const overlay = document.querySelector(".overlay");
   if (overlay) overlay.style.pointerEvents = "none";
+
+  loadAdminData();
+  loadChart();
 });
 
-/* LOAD SYSTEM DATA */
-document.addEventListener("DOMContentLoaded", function() {
+/* LOAD ADMIN DATA */
+function loadAdminData() {
 
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  const cartCount = Number(localStorage.getItem("cartCount")) || 0;
+  const users = JSON.parse(localStorage.getItem("user")) || null;
 
   // Total Orders
   document.getElementById("totalOrders").innerText = orders.length;
 
-  // Fake Active Users (dynamic random)
+  // Fake Active Users
   document.getElementById("activeUsers").innerText =
     Math.floor(Math.random() * 50) + 10;
 
-  // Revenue Calculation (assume avg 100 per order)
-  document.getElementById("revenue").innerText =
-    orders.length * 100;
+  // Revenue (calculate from real orders if stored as objects)
+  let revenue = 0;
+  orders.forEach(order => {
+    if (typeof order === "object" && order.total) {
+      revenue += order.total;
+    } else {
+      revenue += 100; // fallback demo value
+    }
+  });
 
-  // Recent Orders List
+  document.getElementById("revenue").innerText = revenue;
+
+  // Recent Orders
   const list = document.getElementById("recentOrders");
   list.innerHTML = "";
 
@@ -84,14 +105,18 @@ document.addEventListener("DOMContentLoaded", function() {
   } else {
     orders.slice(-5).reverse().forEach(order => {
       const li = document.createElement("li");
-      li.innerText = order;
+      li.innerText =
+        typeof order === "object"
+          ? "Order ₹" + order.total
+          : order;
       list.appendChild(li);
     });
   }
-});
+}
 
 /* ADD DRINK FUNCTION */
 function addDrink() {
+
   const name = document.getElementById("drinkName").value.trim();
   const price = document.getElementById("drinkPrice").value.trim();
 
@@ -100,37 +125,50 @@ function addDrink() {
     return;
   }
 
-  // Store in localStorage
   const drinks = JSON.parse(localStorage.getItem("customDrinks")) || [];
   drinks.push({ name, price });
   localStorage.setItem("customDrinks", JSON.stringify(drinks));
 
   alert("New Drink Added: " + name + " - ₹" + price);
 
-  // Clear fields
   document.getElementById("drinkName").value = "";
   document.getElementById("drinkPrice").value = "";
 }
 
-</script>
-<canvas id="salesChart"></canvas>
+/* LOAD SALES CHART */
+function loadChart(){
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  const ctx = document.getElementById('salesChart');
 
-<script>
-const ctx = document.getElementById('salesChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Burger', 'Pizza', 'Pasta', 'Drinks'],
+      datasets: [{
+        label: 'Sales',
+        data: [
+          Math.floor(Math.random()*20)+5,
+          Math.floor(Math.random()*20)+5,
+          Math.floor(Math.random()*20)+5,
+          Math.floor(Math.random()*20)+5
+        ],
+        backgroundColor: '#ff9800'
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{ labels:{ color:"#fff" } }
+      },
+      scales:{
+        x:{ ticks:{ color:"#fff" } },
+        y:{ ticks:{ color:"#fff" } }
+      }
+    }
+  });
 
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Burger', 'Pizza', 'Pasta', 'Drinks'],
-    datasets: [{
-      label: 'Sales',
-      data: [12, 19, 8, 15],
-      backgroundColor: '#ff9800'
-    }]
-  }
-});
+}
+
 </script>
 
 </body>

@@ -4,17 +4,48 @@
   <title>Order Success</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="center">
+<body>
 
-<div class="success">
-  <h1>✅ Order Placed</h1>
-  <p>Estimated Time: <span id="time"></span> mins</p>
-  <button onclick="location.href='index.html'">Back Home</button>
-</div>
+<section class="hero" style="display:flex;justify-content:center;align-items:center;">
+
+  <div class="overlay"></div>
+
+  <div class="success">
+    <h1>✅ Order Placed Successfully</h1>
+
+    <p>🧾 Order ID: <span id="orderId"></span></p>
+    <p>⏱ Estimated Time: <span id="time"></span> mins</p>
+
+    <button class="btn primary" onclick="goHome()">Back Home</button>
+  </div>
+
+</section>
 
 <script>
-  document.getElementById("time").innerText =
-    Math.max(10, localStorage.getItem("cartCount") * 5);
+
+  // Generate fake order ID
+  const orderId = "ORD" + Math.floor(Math.random() * 100000);
+  document.getElementById("orderId").innerText = orderId;
+
+  // Get cart from localStorage
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Calculate time based on items
+  const estimatedTime = Math.max(10, cart.length * 5);
+  document.getElementById("time").innerText = estimatedTime;
+
+  // Save order to admin dashboard
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders.push(orderId + " - " + cart.length + " items");
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  // Clear cart after success
+  localStorage.removeItem("cart");
+
+  function goHome() {
+    window.location.href = "index.html";
+  }
+
 </script>
 
 </body>
