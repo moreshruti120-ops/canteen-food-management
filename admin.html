@@ -3,19 +3,14 @@
 <head>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="style.css">
-<<<<<<< HEAD
-=======
-  <script src="script.js"></script>
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <section class="admin-hero">
-
   <div class="overlay"></div>
 
   <div class="admin-container">
-
     <h1>⚡ Admin Control Panel</h1>
     <p>Manage Menu • Monitor Orders • Control System</p>
 
@@ -47,32 +42,24 @@
 
     </div>
 
-<<<<<<< HEAD
-    <button class="logout-btn" onclick="window.location.href='index.html'">
+    <button class="logout-btn" onclick="location.href='index.html'">
       Logout
     </button>
-=======
-    <button class="logout-btn" onclick="location.href='index.html'">Logout</button>
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 
   </div>
-
 </section>
 
-<<<<<<< HEAD
 <!-- SALES CHART -->
 <section style="padding:40px;background:#000;text-align:center;">
   <h2 style="color:#ff9800;">📊 Sales Overview</h2>
   <canvas id="salesChart" style="max-width:600px;margin:auto;"></canvas>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>
-
 <script>
 
-/* PREVENT OVERLAY BLOCKING CLICKS */
+/* PREVENT OVERLAY BLOCK */
 document.addEventListener("DOMContentLoaded", function() {
+
   const overlay = document.querySelector(".overlay");
   if (overlay) overlay.style.pointerEvents = "none";
 
@@ -84,55 +71,19 @@ document.addEventListener("DOMContentLoaded", function() {
 function loadAdminData() {
 
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  const users = JSON.parse(localStorage.getItem("user")) || null;
-=======
-<script>
-
-/* FIX OVERLAY CLICK ISSUE */
-document.addEventListener("DOMContentLoaded", function() {
-  const overlay = document.querySelector(".overlay");
-  if (overlay) overlay.style.pointerEvents = "none";
-});
-
-/* LOAD SYSTEM DATA */
-document.addEventListener("DOMContentLoaded", function() {
-
-  const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  const cartCount = Number(localStorage.getItem("cartCount")) || 0;
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 
   // Total Orders
   document.getElementById("totalOrders").innerText = orders.length;
 
-<<<<<<< HEAD
   // Fake Active Users
   document.getElementById("activeUsers").innerText =
     Math.floor(Math.random() * 50) + 10;
 
-  // Revenue (calculate from real orders if stored as objects)
-  let revenue = 0;
-  orders.forEach(order => {
-    if (typeof order === "object" && order.total) {
-      revenue += order.total;
-    } else {
-      revenue += 100; // fallback demo value
-    }
-  });
-
-  document.getElementById("revenue").innerText = revenue;
-
-  // Recent Orders
-=======
-  // Fake Active Users (dynamic random)
-  document.getElementById("activeUsers").innerText =
-    Math.floor(Math.random() * 50) + 10;
-
-  // Revenue Calculation (assume avg 100 per order)
+  // Revenue Calculation (₹100 per order demo)
   document.getElementById("revenue").innerText =
     orders.length * 100;
 
-  // Recent Orders List
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
+  // Recent Orders
   const list = document.getElementById("recentOrders");
   list.innerHTML = "";
 
@@ -141,11 +92,9 @@ document.addEventListener("DOMContentLoaded", function() {
   } else {
     orders.slice(-5).reverse().forEach(order => {
       const li = document.createElement("li");
-<<<<<<< HEAD
-      li.innerText =
-        typeof order === "object"
-          ? "Order ₹" + order.total
-          : order;
+      li.innerText = typeof order === "object"
+        ? "Order ₹" + (order.total || 100)
+        : order;
       list.appendChild(li);
     });
   }
@@ -154,43 +103,24 @@ document.addEventListener("DOMContentLoaded", function() {
 /* ADD DRINK FUNCTION */
 function addDrink() {
 
-=======
-      li.innerText = order;
-      list.appendChild(li);
-    });
-  }
-});
-
-/* ADD DRINK FUNCTION */
-function addDrink() {
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
   const name = document.getElementById("drinkName").value.trim();
   const price = document.getElementById("drinkPrice").value.trim();
 
-  if(name === "" || price === "") {
+  if (name === "" || price === "") {
     alert("Enter drink details");
     return;
   }
 
-<<<<<<< HEAD
-=======
-  // Store in localStorage
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
   const drinks = JSON.parse(localStorage.getItem("customDrinks")) || [];
   drinks.push({ name, price });
   localStorage.setItem("customDrinks", JSON.stringify(drinks));
 
   alert("New Drink Added: " + name + " - ₹" + price);
 
-<<<<<<< HEAD
-=======
-  // Clear fields
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
   document.getElementById("drinkName").value = "";
   document.getElementById("drinkPrice").value = "";
 }
 
-<<<<<<< HEAD
 /* LOAD SALES CHART */
 function loadChart(){
 
@@ -225,27 +155,6 @@ function loadChart(){
 
 }
 
-=======
-</script>
-<canvas id="salesChart"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-const ctx = document.getElementById('salesChart');
-
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Burger', 'Pizza', 'Pasta', 'Drinks'],
-    datasets: [{
-      label: 'Sales',
-      data: [12, 19, 8, 15],
-      backgroundColor: '#ff9800'
-    }]
-  }
-});
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 </script>
 
 </body>

@@ -7,12 +7,8 @@
 </head>
 <body>
 
-<<<<<<< HEAD
 <section class="hero" style="background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=1600&auto=format&fit=crop') center/cover;">
   
-=======
-<section class="hero" style="background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') center/cover;">
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
   <div class="overlay"></div>
 
   <div class="hero-content">
@@ -27,57 +23,46 @@
     <button class="btn primary" style="margin-top:30px;" onclick="confirmTakeaway()">
       Start Ordering
     </button>
-<<<<<<< HEAD
 
     <!-- Show saved token if exists -->
     <p id="savedToken" style="margin-top:20px;color:#ccc;"></p>
 
-=======
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
   </div>
 </section>
 
 <script>
-<<<<<<< HEAD
 
 /* Fix overlay blocking clicks */
 document.addEventListener("DOMContentLoaded", function() {
   const overlay = document.querySelector(".overlay");
   if (overlay) overlay.style.pointerEvents = "none";
+
+  // Generate new token
+  const token = "TK-" + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById("token").innerText = token;
+
+  // Show previously saved token
+  const oldToken = localStorage.getItem("pickupToken");
+  if (oldToken) {
+    document.getElementById("savedToken").innerText =
+      "Previous Token: " + oldToken;
+  }
+
+  // Save token to window so function can access
+  window.generatedToken = token;
 });
-
-/* Generate token */
-const token = "TK-" + Math.floor(1000 + Math.random() * 9000);
-document.getElementById("token").innerText = token;
-
-/* Show previously generated token */
-const oldToken = localStorage.getItem("pickupToken");
-if (oldToken) {
-  document.getElementById("savedToken").innerText =
-    "Previous Token: " + oldToken;
-}
 
 function confirmTakeaway() {
 
   localStorage.setItem("orderMode", "Take Away");
-  localStorage.setItem("pickupToken", token);
+  localStorage.setItem("pickupToken", window.generatedToken);
 
-  alert("✔ Token " + token + " generated.\nYou can now order food.");
+  alert("✔ Token " + window.generatedToken + " generated.\nYou can now order food.");
 
   // Redirect to MENU page (multi-page structure)
   window.location.href = "menu.html";
 }
 
-=======
-const token = "TK-" + Math.floor(1000 + Math.random() * 9000);
-document.getElementById("token").innerText = token;
-
-function confirmTakeaway() {
-  localStorage.setItem("pickupToken", token);
-  alert("✔ Token " + token + " generated.\nOrder your food now.");
-  window.location.href = "index.html";
-}
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 </script>
 
 </body>

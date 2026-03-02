@@ -19,50 +19,75 @@
 </nav>
 
 <!-- MENU SECTION -->
-<section class="menu-preview">
+<div class="menu-grid">
 
-  <h2>🔥 Popular Items</h2>
-  <p>Quick bites loved by students</p>
-
-  <input type="text"
-         id="searchBar"
-         placeholder="🔍 Search food items..."
-         onkeyup="searchMenu()"
-         style="padding:10px 20px;border-radius:30px;border:none;width:280px;margin-bottom:30px;">
-
-  <div class="category-buttons">
-    <button onclick="filterMenu('all')">All</button>
-    <button onclick="filterMenu('snacks')">Snacks</button>
-    <button onclick="filterMenu('meals')">Meals</button>
-    <button onclick="filterMenu('drinks')">Drinks</button>
+  <!-- SNACKS -->
+  <div class="menu-card snacks">
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop">
+    <h3>Cheese Burger</h3>
+    <span>₹120</span>
+    <button onclick="addToCart('Cheese Burger',120)">Add to Cart</button>
   </div>
 
-  <div class="menu-grid">
-
-    <div class="menu-card snacks">
-      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800">
-      <h3>Cheese Burger</h3>
-      <span>₹120</span>
-      <button onclick="addToCart('Cheese Burger',120)">Add to Cart</button>
-    </div>
-
-    <div class="menu-card meals">
-      <img src="https://images.unsplash.com/photo-1548365328-9f547fb09505?w=800">
-      <h3>Veg Pizza</h3>
-      <span>₹150</span>
-      <button onclick="addToCart('Veg Pizza',150)">Add to Cart</button>
-    </div>
-
-    <div class="menu-card drinks">
-      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800">
-      <h3>Cold Coffee</h3>
-      <span>₹60</span>
-      <button onclick="addToCart('Cold Coffee',60)">Add to Cart</button>
-    </div>
-
+  <div class="menu-card snacks">
+    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&auto=format&fit=crop">
+    <h3>French Fries</h3>
+    <span>₹70</span>
+    <button onclick="addToCart('French Fries',70)">Add to Cart</button>
   </div>
 
-</section>
+  <div class="menu-card snacks">
+    <img src="https://images.unsplash.com/photo-1604908554260-3c8e06f9d5fd?w=800&auto=format&fit=crop">
+    <h3>Grilled Sandwich</h3>
+    <span>₹80</span>
+    <button onclick="addToCart('Grilled Sandwich',80)">Add to Cart</button>
+  </div>
+
+  <!-- MEALS -->
+  <div class="menu-card meals">
+    <img src="https://images.unsplash.com/photo-1548365328-9f547fb09505?w=800&auto=format&fit=crop">
+    <h3>Veg Pizza</h3>
+    <span>₹150</span>
+    <button onclick="addToCart('Veg Pizza',150)">Add to Cart</button>
+  </div>
+
+  <div class="menu-card meals">
+    <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=800&auto=format&fit=crop">
+    <h3>White Sauce Pasta</h3>
+    <span>₹130</span>
+    <button onclick="addToCart('White Sauce Pasta',130)">Add to Cart</button>
+  </div>
+
+  <div class="menu-card meals">
+    <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&auto=format&fit=crop">
+    <h3>Veg Noodles</h3>
+    <span>₹100</span>
+    <button onclick="addToCart('Veg Noodles',100)">Add to Cart</button>
+  </div>
+
+  <!-- DRINKS -->
+  <div class="menu-card drinks">
+    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop">
+    <h3>Cold Coffee</h3>
+    <span>₹60</span>
+    <button onclick="addToCart('Cold Coffee',60)">Add to Cart</button>
+  </div>
+
+  <div class="menu-card drinks">
+    <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?w=800&auto=format&fit=crop">
+    <h3>Chocolate Milkshake</h3>
+    <span>₹90</span>
+    <button onclick="addToCart('Chocolate Milkshake',90)">Add to Cart</button>
+  </div>
+
+  <div class="menu-card drinks">
+    <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&auto=format&fit=crop">
+    <h3>Lemon Juice</h3>
+    <span>₹40</span>
+    <button onclick="addToCart('Lemon Juice',40)">Add to Cart</button>
+  </div>
+
+</div>
 
 <!-- LIVE ORDER -->
 <section style="padding:80px 60px;background:#000;">

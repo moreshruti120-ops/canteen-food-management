@@ -1,243 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
 <meta charset="UTF-8">
 <title>Your Cart</title>
-<link rel="stylesheet" href="style.css">
 
 <style>
-/* ================= CART PAGE REDESIGN ================= */
-
-.cart-hero {
-  min-height: 100vh;
-  background: url("https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=1600&auto=format&fit=crop") center/cover no-repeat;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg,#1a1a2e,#16213e,#0f3460);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  overflow: hidden;
 }
 
-.cart-overlay {
+/* Floating background glow */
+body::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle,#ff9800,#ff3d00);
+  filter: blur(120px);
+  top: -100px;
+  right: -100px;
+  opacity: 0.6;
 }
 
-.cart-container {
+/* Glass card */
+.cart-box {
   position: relative;
   z-index: 2;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(25px);
-  padding: 60px;
-  border-radius: 25px;
   width: 90%;
-  max-width: 600px;
+  max-width: 650px;
+  padding: 50px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 60px rgba(255,152,0,0.4);
+  color: white;
+  animation: fade 0.6s ease;
+}
+
+.cart-box h1 {
   text-align: center;
-  box-shadow: 0 0 60px rgba(255,152,0,0.35);
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.cart-container h1 {
   color: #ff9800;
-  margin-bottom: 25px;
+  font-size: 34px;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
 }
 
-.cart-container ul {
+ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 20px;
 }
 
-.cart-container li {
-  padding: 12px 0;
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  font-size: 16px;
+  font-size: 18px;
 }
 
-.cart-container h2 {
-  margin-top: 20px;
-  font-size: 20px;
-}
-
-.cart-container .btn {
+.total {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
   margin-top: 25px;
 }
 
-/* RATING */
-.rating {
-  margin-top: 25px;
-  font-size: 24px;
+.pay-btn {
+  margin-top: 35px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(45deg,#ff9800,#ff3d00);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
-.rating span {
-  color: #555;
-  transition: 0.3s;
+.pay-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 30px #ff9800;
 }
 
-.rating span:hover {
-  transform: scale(1.2);
-}
-
-.rating-text {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #aaa;
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(20px);}
+@keyframes fade {
+  from {opacity:0; transform:translateY(30px);}
   to {opacity:1; transform:translateY(0);}
 }
+
 </style>
-
 </head>
 <body>
 
-<section class="cart-hero">
+<div class="cart-box">
+  <h1>🛒 Your Cart</h1>
 
-  <div class="cart-overlay"></div>
+  <ul id="cartItems"></ul>
 
-  <div class="cart-container">
-
-    <h1>🛒 Your Cart</h1>
-
-=======
-  <meta charset="UTF-8">
-  <title>Your Cart</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<section class="hero">
-  <div class="overlay"></div>
-
-  <div class="cart-box">
-    <h1>🛒 Your Cart</h1>
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
-    <ul id="cartItems"></ul>
-
-    <h2>Total: ₹<span id="total">0</span></h2>
-
-<<<<<<< HEAD
-    <button class="btn primary" onclick="goToPayment()">
-      Proceed to Payment
-    </button>
-
-    <!-- RATING -->
-    <div class="rating" data-item="Cart Rating">
-      <span data-value="1">★</span>
-      <span data-value="2">★</span>
-      <span data-value="3">★</span>
-      <span data-value="4">★</span>
-      <span data-value="5">★</span>
-    </div>
-
-    <p class="rating-text">Rate your experience</p>
-
+  <div class="total">
+    Total: ₹<span id="total">0</span>
   </div>
 
-</section>
+  <button class="pay-btn" onclick="goToPayment()">
+    Proceed to Payment
+  </button>
+</div>
 
 <script>
-
-/* LOAD CART CLEANLY */
-document.addEventListener("DOMContentLoaded", function(){
-
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+function loadCartPage() {
   const list = document.getElementById("cartItems");
   const totalEl = document.getElementById("total");
 
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = 0;
+
   list.innerHTML = "";
 
-  if(cart.length === 0){
+  if (cart.length === 0) {
     list.innerHTML = "<li>Your cart is empty</li>";
-  } else {
-    cart.forEach(item => {
-      const li = document.createElement("li");
-      li.innerText = item.name + " - ₹" + item.price;
-      list.appendChild(li);
-      total += Number(item.price);
-    });
+    return;
   }
 
-  totalEl.innerText = total;
-});
-
-/* PAYMENT REDIRECT */
-function goToPayment() {
-  window.location.href = "payment.html";
-}
-
-/* SIMPLE RATING SYSTEM */
-document.querySelectorAll(".rating span").forEach(star => {
-  star.addEventListener("click", function(){
-    const value = this.getAttribute("data-value");
-    const parent = this.parentElement;
-
-    parent.querySelectorAll("span").forEach(s => {
-      s.style.color = s.getAttribute("data-value") <= value
-        ? "#ff9800"
-        : "#555";
-    });
-
-    localStorage.setItem("cartRating", value);
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${item.name}</span> <span>₹${item.price}</span>`;
+    list.appendChild(li);
+    total += Number(item.price);
   });
-});
 
-</script>
-=======
-    <button class="btn primary" onclick="goToPayment()">Proceed to Payment</button>
-  </div>
-  <div class="rating" data-item="Cheese Burger">
-  <span data-value="1">★</span>
-  <span data-value="2">★</span>
-  <span data-value="3">★</span>
-  <span data-value="4">★</span>
-  <span data-value="5">★</span>
-</div>
-<p class="rating-text">Rate this item</p>
-</section>
-
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let total = 0;
-const list = document.getElementById("cartItems");
-
-cart.forEach(item => {
-  const li = document.createElement("li");
-  li.innerText = `${item.name} - ₹${item.price}`;
-  list.appendChild(li);
-  total += item.price;
-});
-
-document.getElementById("total").innerText = total;
+  totalEl.innerText = total;
+}
 
 function goToPayment() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
   window.location.href = "payment.html";
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let total = 0;
-
-const list = document.getElementById("cartItems");
-
-if(cart.length === 0){
-  list.innerHTML = "<li>Your cart is empty</li>";
 }
 
-cart.forEach(item => {
-  const li = document.createElement("li");
-  li.innerText = item.name + " - ₹" + item.price;
-  list.appendChild(li);
-  total += item.price;
-});
-
-document.getElementById("total").innerText = total;
-}
+window.onload = loadCartPage;
 </script>
-<script src="script.js"></script>
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 
 </body>
 </html>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,7 +8,6 @@
 <style>
 
 /* ===== BACKGROUND ===== */
-
 .success-hero {
   height: 100vh;
   background: url("https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=1600&auto=format&fit=crop") center/cover no-repeat;
@@ -29,7 +27,6 @@
 }
 
 /* ===== GLASS CARD ===== */
-
 .success-box {
   position: relative;
   z-index: 2;
@@ -56,7 +53,6 @@
 }
 
 /* ===== CHECK ANIMATION ===== */
-
 .checkmark {
   width: 80px;
   height: 80px;
@@ -75,7 +71,6 @@
 }
 
 /* ===== BUTTON ===== */
-
 .success-btn {
   margin-top: 25px;
   padding: 14px 30px;
@@ -94,7 +89,6 @@
 }
 
 /* ===== ANIMATIONS ===== */
-
 @keyframes pop {
   from { transform: scale(0); }
   to { transform: scale(1); }
@@ -146,24 +140,6 @@ document.getElementById("time").innerText = time;
 // Clear cart after success
 localStorage.removeItem("cart");
 
-=======
-<html>
-<head>
-  <title>Order Success</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body class="center">
-
-<div class="success">
-  <h1>✅ Order Placed</h1>
-  <p>Estimated Time: <span id="time"></span> mins</p>
-  <button onclick="location.href='index.html'">Back Home</button>
-</div>
-
-<script>
-  document.getElementById("time").innerText =
-    Math.max(10, localStorage.getItem("cartCount") * 5);
->>>>>>> 07c61f22cd9bd541cdb8a332e02fda4644723b4b
 </script>
 
 </body>
