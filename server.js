@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+// 🔥 Firebase
+const db = require("./firebase");
+
 const authRoutes = require("./routes/auth");
 const paymentRoutes = require("./routes/payment");
 
@@ -20,6 +23,7 @@ app.use("/api/payment", paymentRoutes);
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
     console.log("MongoDB Connected");
+    console.log("🔥 Firebase Connected");
 
     app.listen(process.env.PORT || 5000, () => {
         console.log("Server running on port 5000");
