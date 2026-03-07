@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
-// 🔥 Firebase
 const db = require("../firebase");
 
 const paymentSchema = new mongoose.Schema({
@@ -20,13 +18,12 @@ const paymentSchema = new mongoose.Schema({
 const Payment = mongoose.model("Payment", paymentSchema);
 
 router.post("/", async (req, res) => {
-  try {
-    const payment = new Payment(req.body);
 
-    // Save in MongoDB (existing)
+  try {
+
+    const payment = new Payment(req.body);
     await payment.save();
 
-    // 🔥 Save in Firebase Firestore
     await db.collection("payments").add({
       userEmail: req.body.userEmail,
       paymentMethod: req.body.paymentMethod,
@@ -36,11 +33,14 @@ router.post("/", async (req, res) => {
       createdAt: new Date()
     });
 
-    res.json({ message: "Payment Saved Successfully" });
+    res.json({ message: "Payment saved successfully" });
 
   } catch (err) {
+
     res.status(500).json({ error: err.message });
+
   }
+
 });
 
 module.exports = router;
